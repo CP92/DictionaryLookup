@@ -33,8 +33,9 @@ class App extends Component {
   inputUpdated(event) {
     this.setState({wordInput: event.target.value})
 
-    datamuse.words({sp: event.target.value + '*'})
+    datamuse.words({sp: event.target.value + '*', md: 'dp'})
       .then((json) => {
+        console.log(json)
         this.setState({wordList: json})
       })
   }
@@ -57,7 +58,7 @@ class App extends Component {
 
     return (
       <React.Fragment>
-        <Header user={user} />
+        
         {flashMessage && <h3 className={flashType}>{flashMessage}</h3>}
         
         <main className="container">
@@ -91,7 +92,8 @@ class App extends Component {
             <div>
               <ul>
                 {this.state.wordList.map((word) => (
-                  <li key={word.word}>{word.word}</li>
+                  <li key={word.word}><strong>{word.word + ' - '}</strong>{word.defs}</li>
+                  
                 ))}
               </ul>
             </div>
