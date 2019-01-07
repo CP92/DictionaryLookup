@@ -30,10 +30,11 @@ class App extends Component {
     this.inputUpdated = this.inputUpdated.bind(this)
   }
 
+  //  Updates the text field and performs api calls to datamuse
   inputUpdated(event) {
     this.setState({wordInput: event.target.value})
 
-    datamuse.words({sp: event.target.value + '*', md: 'dp'})
+    datamuse.words({sp: event.target.value + '*', md: 'dp', max: 1000})
       .then((json) => {
         console.log(json)
         this.setState({wordList: json})
@@ -93,7 +94,7 @@ class App extends Component {
               <ul>
                 {this.state.wordList.map((word) => (
                   <li key={word.word}><strong>{word.word + ' - '}</strong>{word.defs}</li>
-                  
+
                 ))}
               </ul>
             </div>
